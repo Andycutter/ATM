@@ -13,6 +13,8 @@ class ATM
             { status: false, message:'Insufficient funds in ATM', date: Date.today}
         when incorrect_pin?(pin_code, account.pin_code)
             { status: false, message: 'Wrong pin code', date: Date.today}
+        when card_expired?(account.exp_date)
+            { status: false, message: 'Card expired', date: Date.today}
         else
             perform_transaction(amount, account)
         end
@@ -36,5 +38,9 @@ class ATM
 
     def incorrect_pin?(pin_code, actual_pin)
         pin_code != actual_pin
+    end
+
+    def card_expired?(exp_date)
+        Date.strptime(exp_date, '%m/%y') < Date.today
     end
 end
