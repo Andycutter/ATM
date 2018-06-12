@@ -33,6 +33,7 @@ class ATM
         end
         bills
     end
+    
     private
 
     def insufficient_funds_in_account?(amount, account)
