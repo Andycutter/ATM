@@ -17,5 +17,9 @@ class Account
         rand(1000..9999)
     end
 
+    def deactivate
+        @account_status = :deactivated
+    end
+
 
 end
