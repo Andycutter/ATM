@@ -8,7 +8,7 @@ class Account
         @exp_date = Date.today.next_year(Account::STD_VLD_YRS).strftime('%m/%y')
         @balance = 0
         @account_status = :active
-            set_owner(attrs[:owner])        
+        @owner = set_owner(attrs[:owner])        
     end
 
     private

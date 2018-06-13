@@ -1,9 +1,10 @@
 require './lib/person.rb'
 require './lib/atm.rb'
+require './lib/account.rb'
 require 'Date'
 
 describe Person do
-
+    let(:account) { instance_double('Account', pin_code: '1234', exp_date: '07/18', account_status: :active)}
     subject { described_class.new(name: 'Thomas') }
 
     it 'is expected to have a :name on initialize' do
@@ -22,7 +23,15 @@ describe Person do
         expect(subject.account).to be nil
     end
 
-    
+    describe 'can create an Account' do
+        before { subject.create_account }
+        
+        it 'of Account class ' do
+            expect(subject.account).to be_an_instance_of Account
+        end
 
-
+        it 'with himself as an owner' do
+            expect(subject.account.owner).to be subject
+        end
+    end
 end
