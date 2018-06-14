@@ -17,7 +17,7 @@ class Person
         @account == nil ? missing_account : deposit_cash(amount)
     end
 
-    def withdraw(args = {})
+    def retrieve_cash(args = {})
         @account == nil ? missing_account : withdraw_funds(args)
     end
 
@@ -54,6 +54,6 @@ class Person
     end
 
     def increase_cash(response)
-        @cash += reponse[:amount]
+        @cash += response[:amount]
     end
 end
