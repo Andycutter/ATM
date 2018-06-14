@@ -13,8 +13,10 @@ class Account
         @owner = set_owner(attrs[:owner])        
     end
 
+    
     private
 
+    
     def generate_pin
         rand(1000..9999)
     end

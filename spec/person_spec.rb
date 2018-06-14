@@ -49,7 +49,7 @@ describe Person do
         end
 
         it 'can withdraw funds' do
-            command = lambda { subject.retrieve_cash(amount: 100, pin_code: subject.account.pin_code, account: subject.account, atm: atm) }
+            command = lambda { subject.retrieve_cash(amount: 100, pin: subject.account.pin_code, account: subject.account, atm: atm) }
             expect(command.call).to be_truthy
         end
 
@@ -58,12 +58,18 @@ describe Person do
             expect { command.call }.to raise_error 'An ATM is required'
         end
 
-        it 'funds are added to cash - deducted from account balance' do
+        it 'funds are added to cash and...' do
             subject.cash = 100
             subject.deposit(100)
-            subject.retrieve_cash(amount: 100, pin_code: subject.account.pin_code, account: subject.account, atm: atm)
-            expect(subject.account.balance).to eq 0
+            subject.retrieve_cash(amount: 100, pin: subject.account.pin_code, account: subject.account, atm: atm)
             expect(subject.cash).to eq 100
+        end
+
+        it '...deducted from account balance' do
+            subject.cash = 100
+            subject.deposit(100)
+            subject.retrieve_cash(amount: 100, pin: subject.account.pin_code, account: subject.account, atm: atm)
+            expect(subject.account.balance).to eq 0
         end
     end
 

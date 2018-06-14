@@ -21,23 +21,12 @@ class Person
         @account == nil ? missing_account : withdraw_funds(args)
     end
 
+    
     private
 
+    
     def set_name(obj)
         obj == nil ? missing_name : @name = obj
-    end
-
-    def missing_name
-        raise "A name is required"
-    end
-
-    def deposit_cash(amount)
-        @cash -=amount
-        @account.balance += amount
-    end
-
-    def missing_account
-        raise 'No account present'
     end
 
     def withdraw_funds(args)
@@ -49,11 +38,24 @@ class Person
         response[:status] == true ? increase_cash(response) : response
     end
 
+    def deposit_cash(amount)
+        @cash -= amount
+        @account.balance += amount
+    end
+ 
+    def increase_cash(response)
+        @cash += response[:amount]
+    end
+
+    def missing_account
+        raise 'No account present'
+    end
+
     def missing_atm
         raise 'An ATM is required'
     end
 
-    def increase_cash(response)
-        @cash += response[:amount]
+    def missing_name
+        raise "A name is required"
     end
 end
