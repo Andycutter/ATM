@@ -1,4 +1,4 @@
-class ATM
+class Atm
     attr_accessor :funds
 
     def initialize

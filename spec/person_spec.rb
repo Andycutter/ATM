@@ -1,6 +1,6 @@
 require './lib/person.rb'
 require './lib/atm.rb'
-require './lib/account.rb'
+#require './lib/account.rb'
 require 'Date'
 
 describe Person do
@@ -36,7 +36,7 @@ describe Person do
     end
 
     describe 'can manage funds if an account been created' do
-        let(:atm) {ATM.new}
+        let(:atm) {Atm.new}
         before {subject.create_account}
 
         it 'can deposit funds' do 
