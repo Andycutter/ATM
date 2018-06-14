@@ -20,7 +20,7 @@ describe Account do
     end
 
     it 'is expected to be active on initialize' do
-        expect(subject.account_status).to eq :active
+        expect(subject.condition).to eq :active
     end
 
     it 'is expected to have an owner' do

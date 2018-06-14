@@ -2,7 +2,7 @@ require './lib/person.rb'
 require './lib/atm.rb'
 
 describe Person do
-    let(:account) { instance_double('Account', pin_code: '1234', exp_date: '07/18', account_status: :active)}
+    let(:account) { instance_double('Account', pin_code: '1234', exp_date: '07/18', condition: :active)}
     subject { described_class.new(name: 'Thomas') }
 
     it 'is expected to have a :name on initialize' do
@@ -51,6 +51,19 @@ describe Person do
         it 'can withdraw funds' do
             command = lambda { subject.withdraw(amount: 100, pin_code: subject.account.pin_code, account: subject.account, atm: atm) }
             expect(command.call).to be_truthy
+        end
+
+        it 'withdraw is expected to raise error if no ATM is passed in' do
+            command = lambda {subject.withdraw(amount: 100, pin: subject.account.pin_code, account: subject.account) }
+            expect { command.call }.to raise_error 'An ATM is required'
+        end
+
+        it 'funds are added to cash - deducted from account balance' do
+            subject.cash = 100
+            subject.deposit(100)
+            subject.withdraw(amount: 100, pin_code: subject.account.pin_code, account: subject.account, atm: atm)
+            expect(subject.account.balance).to be 0
+            expect(subject.cash).to be 100
         end
     end
 

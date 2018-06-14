@@ -1,4 +1,4 @@
-require 'date'
+require 'Date'
 
 class Atm
     attr_accessor :funds
@@ -7,7 +7,7 @@ class Atm
         @funds = 1000
     end
 
-    def withdraw(amount, pin_code, account, account_status)
+    def withdraw(amount, pin_code, account, condition)
         case
         when insufficient_funds_in_account?(amount, account)
             { status: false, message:'Insufficient funds', date: Date.today}
@@ -17,7 +17,7 @@ class Atm
             { status: false, message: 'Wrong pin code', date: Date.today}
         when card_expired?(account.exp_date)
             { status: false, message: 'Card expired', date: Date.today}
-        when account_disabled?(account_status, account.account_status)
+        when account_disabled?(condition, account.condition)
             { status: false, message: 'Account disabled', date: Date.today}
         else
             perform_transaction(amount, account)
@@ -60,7 +60,7 @@ class Atm
         Date.strptime(exp_date, '%m/%y') < Date.today
     end
 
-    def account_disabled?(account_status, actual_status)
-        account_status != actual_status
+    def account_disabled?(condition, actual_status)
+        condition != actual_status
     end
 end
