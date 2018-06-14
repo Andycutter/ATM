@@ -1,7 +1,5 @@
 require './lib/person.rb'
 require './lib/atm.rb'
-#require './lib/account.rb'
-require 'Date'
 
 describe Person do
     let(:account) { instance_double('Account', pin_code: '1234', exp_date: '07/18', account_status: :active)}

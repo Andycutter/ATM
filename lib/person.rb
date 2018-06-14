@@ -1,5 +1,4 @@
 require './lib/account.rb'
-require './lib/atm.rb'
 
 class Person
     attr_accessor :name, :cash, :account
@@ -46,7 +45,7 @@ class Person
         account = @account
         amount = args[:amount]
         pin_code = args[:pin_code]
-        response = atm.withdraw(amount, pin_code, account)
+        response = atm.withdraw(amount, pin_code, account, atm)
         response[:status] == true ? increase_cash(response) : response
     end
 
