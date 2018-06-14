@@ -4,8 +4,8 @@ class Person
     attr_accessor :name, :cash, :account
 
     def initialize(attrs = {})
-        @cash = 0
         @name = set_name(attrs[:name])
+        @cash = 0
         @account = nil
     end
 
@@ -33,8 +33,8 @@ class Person
         args[:atm] == nil ? missing_atm : atm = args[:atm]
         account = @account
         amount = args[:amount]
-        pin_code = args[:pin_code]
-        response = atm.withdraw(amount, pin_code, account, atm)
+        pin = args[:pin]
+        response = atm.withdraw(amount, pin, account, atm)
         response[:status] == true ? increase_cash(response) : response
     end
 
